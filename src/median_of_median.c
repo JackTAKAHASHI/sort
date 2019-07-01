@@ -13,13 +13,36 @@ void swap(int *p, int *q){
   *q = tmp;
 }
 
+void find_the_median(int A[], int n){
+    if(n == 1) return;
+    else if(n <= 6){
+        int i,j;
+        for(i = n-1; j < i; i--){
+            for(j = 0; j < i; j++){
+                if(A[j] > A[j+1]) swap(A+j, A+j+1);
+            }
+        }
+        swap(A, A+(n+1)/2);
+    }
+    else{
+        int k,l,m;
+        k = n / 5;
+        for(l = 0; l < 4; l++){
+            find_the_median(A + k*l, k);
+            swap(A + l, A + k*l);
+        }
+        find_the_median(A + 4*k, n - 4*k);
+        swap(A + 4, A + 4*k);
+        find_the_median(A, 5);
+    }
+}
+
 int quick_select(int A[], int n, int k){
   int i, j, pivot;
 
-// 真ん中の要素をピボットとする
-  pivot = A[n/2];
-  A[n/2] = A[0];
-  A[0] = pivot;
+
+  find_the_median(A, n);
+  pivot = A[0];
   for(i = j = 1; i < n; i++){
     if(A[i] <= pivot){
       swap(A+i, A+j);
