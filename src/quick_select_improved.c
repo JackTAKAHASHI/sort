@@ -17,23 +17,26 @@ void swap(int *p, int *q){
 A[0], A[1], ..., A[n-1] の中でk+1番目に小さい値を返す関数
 ただし、Aの中身は書き換えてしまう。
 */
-int quick_select(int A[], int n, int k){
-  int i, j, pivot;
-
+int quick_select(int A[], int n, int m){
+    int i,j,k,l,pivot;
 // 真ん中の要素をピボットとする
   pivot = A[n/2];
-  A[n/2] = A[0];
-  A[0] = pivot;
   for(i = j = 1; i < n; i++){
     if(A[i] <= pivot){
       swap(A+i, A+j);
       j++;
     }
   }
+    for(k = l = 1; k < j; k++){
+        if(A[k] <= pivot){
+            swap(A+k, A+l);
+            l++;
+        }
+    }
 
-  if(j == k+1) return pivot;
-  else if(j < k+1) return quick_select(A+j, n-j, k-j);
-  else return quick_select(A+1, j-1, k);
+  if(l < m+1 && m+1 <= j) return pivot;
+  else if(j < m+1) return quick_select(A+j, n-j, m-j);
+  else return quick_select(A, l, m);
 }
 
 
