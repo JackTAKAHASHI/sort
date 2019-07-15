@@ -28,7 +28,7 @@ int quick_select(int A[], int n, int m){
     }
   }
     for(k = l = 1; k < j; k++){
-        if(A[k] <= pivot){
+        if(A[k] < pivot){
             swap(A+k, A+l);
             l++;
         }

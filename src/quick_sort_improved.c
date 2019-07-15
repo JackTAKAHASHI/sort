@@ -24,6 +24,7 @@ void quick_sort(int A[], int n){
     pivot = A[n/2];
     A[n/2] = A[0];
     A[0] = pivot;
+    
     for(i = j = 1; i < n; i++){
         if(A[i] <= pivot){
             swap(A+i, A+j);
@@ -31,8 +32,8 @@ void quick_sort(int A[], int n){
         }
     }
     
-    for(k = l = 1; k < j; k++){
-        if(A[k] <= pivot){
+    for(k = l = j; k < j; k++){
+        if(A[k] < pivot){
             swap(A+k, A+l);
             l++;
         }
