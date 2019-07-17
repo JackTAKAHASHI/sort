@@ -20,17 +20,20 @@ A[0], A[1], ..., A[n-1] の中でk+1番目に小さい値を返す関数
 int quick_select(int A[], int n, int m){
     int i,j,k,l,pivot;
 // 真ん中の要素をピボットとする
-  pivot = A[n/2];
-  for(i = j = 1; i < n; i++){
-    if(A[i] <= pivot){
-      swap(A+i, A+j);
-      j++;
-    }
-  }
-    for(k = l = 0; k < j; k++){
-        if(A[k] < pivot){
-            swap(A+k, A+l);
-            l++;
+    pivot = A[n/2];
+    A[n/2] = A[0];
+    A[0] = pivot;
+    
+  for(k = 0,i = j = 1; i < n; i++){
+      if(A[i] < pivot){
+          swap(A+i, A+j);
+          swap(A+j, A+k);
+          j++;
+          k++;
+      }
+      else if(A[i] == pivot){
+            swap(A+j, A+i);
+            j++;
         }
     }
 
